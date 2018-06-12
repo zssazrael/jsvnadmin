@@ -8,8 +8,8 @@ import java.sql.Statement;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 /**
@@ -24,13 +24,13 @@ public class Dao {
 	/**
 	 * 日志
 	 */
-	private final Log LOG = LogFactory.getLog(Dao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Dao.class);
 
 	/**
 	 * 数据源
 	 */
 	@Resource(name = "dataSource")
-	DataSource dataSource;
+	private DataSource dataSource;
 
 	/**
 	 * @return 数据源

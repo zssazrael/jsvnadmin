@@ -1,7 +1,7 @@
 package org.svnadmin.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,7 +17,7 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 日志
 	 */
-	private final Log LOG = LogFactory.getLog(SpringUtils.class);
+	private final Logger LOG = LoggerFactory.getLogger(SpringUtils.class);
 	
 	/**
 	 * 当前的版本

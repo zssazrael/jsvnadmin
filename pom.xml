@@ -7,11 +7,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<war.name>svnadmin</war.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!--war包是否把classes打包 -->
-		<war.archiveClasses>true</war.archiveClasses>
-
 		<svnkit.version>1.7.6</svnkit.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<junit.version>4.8.2</junit.version>
@@ -19,40 +15,40 @@
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-pool.version>1.5.5</commons-pool.version>
 		<commons-io.version>2.0.1</commons-io.version>
-		<commons-logging.version>1.1.1</commons-logging.version>
 		<log4j.version>1.2.16</log4j.version>
-		<servlet.version>2.5</servlet.version>
-		<servlet.jsp.version>2.1</servlet.jsp.version>
-		<!-- jdbc -->
-		<jdbc.mysql.version>5.1.14</jdbc.mysql.version>
-		<jdbc.oracle.version>10.2.0.3.0</jdbc.oracle.version>
 	</properties>
-
 	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>${servlet.jsp.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jsp-api</artifactId>
+            <version>8.5.31</version>
+        </dependency>
 		<dependency>
 			<groupId>org.tmatesoft.svnkit</groupId>
 			<artifactId>svnkit</artifactId>
 			<version>${svnkit.version}</version>
 		</dependency>
-		
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.25</version>
+        </dependency>
 		<!-- spring begin -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+			    <exclusion>
+			        <groupId>commons-logging</groupId>
+			        <artifactId>commons-logging</artifactId>
+			    </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -65,11 +61,6 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- only for jdk5.0 -->
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-annotation_1.0_spec</artifactId>
-			<version>1.1.1</version>
-		</dependency>
 
 		<!-- spring aop -->
 		<dependency>
@@ -136,157 +127,29 @@
 
 		<!-- logger -->
 		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>${commons-logging.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-
-		<!-- Start JDBC -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>${jdbc.mysql.version}</version>
-			<type>jar</type>
-			<scope>runtime</scope>
+			<version>5.1.46</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>sqljdbc</artifactId>
-			<version>2005</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc</artifactId>
-			<version>${jdbc.oracle.version}</version>
-			<type>jar</type>
-			<scope>runtime</scope>
-		</dependency>
-		-->
-		<!-- End JDBC -->
-
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>svnkit_repository</id>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<url>http://maven.svnkit.com/maven2/</url>
-		</repository>
-	</repositories>
-
 	<build>
-		<finalName>${war.name}</finalName>
-		<resources>
-	      <resource>
-	        <directory>src/main/resources</directory>
-	        <filtering>true</filtering>
-	        <includes>
-	          <include>version.properties</include>
-	        </includes>
-	      </resource>
-	      <resource>
-	        <directory>src/main/resources</directory>
-	        <filtering>false</filtering>
-	        <excludes>
-	          <exclude>version.properties</exclude>
-	        </excludes>
-	      </resource>
-	    </resources>
+		<finalName>svnadmin</finalName>
    		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
-				<configuration>
-					<archiveClasses>${war.archiveClasses}</archiveClasses>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<charset>${project.build.sourceEncoding}</charset>
-					<docencoding>${project.build.sourceEncoding}</docencoding>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>${project.build.outputDirectory}/META-INF/zip.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
 		</plugins>
-
 	</build>
 </project>

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.svnadmin.entity.Ajax;
 import org.svnadmin.service.AjaxService;
 import org.svnadmin.util.SpringUtils;
@@ -32,12 +32,8 @@ public class AjaxServlet  extends BaseServlet{
 	 */
 	private static final long serialVersionUID = 4811876317189957164L;
 
-	/**
-	 * 日志
-	 */
-	@SuppressWarnings("hiding")
-	private static final Log LOG = LogFactory.getLog(AjaxServlet.class);
-	
+    private static final Logger LOG = LoggerFactory.getLogger(AjaxServlet.class);
+
 	/**
 	 * 默认的ajax调用content type
 	 */
@@ -97,8 +93,7 @@ public class AjaxServlet  extends BaseServlet{
             
             //LOG.info(result);
         } catch (Exception e) {
-            LOG.error(e);
-        	e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         } finally {
             if (out != null) {
             	out.flush();

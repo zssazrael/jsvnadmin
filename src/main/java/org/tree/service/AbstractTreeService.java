@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tree.entity.Tree;
 
 /**
@@ -19,7 +19,7 @@ public abstract class AbstractTreeService implements TreeService {
 	/**
 	 * 日志
 	 */
-	private static final Log LOG = LogFactory.getLog(AbstractTreeService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractTreeService.class);
 
 	public String getHTML(Map<String, Object> parameters) {
 		try {
@@ -54,8 +54,7 @@ public abstract class AbstractTreeService implements TreeService {
 
 			// LOG.info(html.toString());
 		} catch (Exception e) {
-			LOG.error(e);
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -72,8 +71,7 @@ public abstract class AbstractTreeService implements TreeService {
 			html = getTreeFactory().findTreeNodeService(tree).getHTML(tree,
 					parameters);
 		} catch (Exception e) {
-			LOG.error(e);
-			e.printStackTrace();
+            LOG.error(e.getMessage(), e);
 			html = null;
 		} finally {
 		}
