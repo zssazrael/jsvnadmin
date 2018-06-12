@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationContextAware;
  * @since 1.0
  */
 public class SpringUtils implements ApplicationContextAware {
-	
 	/**
 	 * 日志
 	 */
@@ -73,19 +72,12 @@ public class SpringUtils implements ApplicationContextAware {
 					"applicaitonContext未注入,请在applicationContext.xml中定义SpringUtils");
 		}
 	}
-	
-	/**
-	 * @param version 当前的版本
-	 * @since 3.0.2
-	 */
-	public void setVersion(String version){
-		SpringUtils.version = version;
-	}
+
 	/**
 	 * @return 当前的版本
 	 * @since 3.0.2
 	 */
 	public static String getVersion(){
-		return version;
+		return "2018.06.12";
 	}
 }
