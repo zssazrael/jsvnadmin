@@ -98,7 +98,7 @@ public class UsrServlet extends BaseServlet {
 		}
 		boolean hasUsr = StringUtils.isNotBlank(usr);
 		if (hasUsr) {
-			List<PjAuth> auths = this.usrService.getAuths(usr);
+			List<PjAuth> auths = usrService.getAuths(usr);
 			request.setAttribute("auths", auths);
 		}
 

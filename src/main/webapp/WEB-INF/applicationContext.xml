@@ -22,12 +22,11 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath*:/version.properties</value>
 				<value>/WEB-INF/jdbc.properties</value>
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${${db}.jdbc.driver}" />

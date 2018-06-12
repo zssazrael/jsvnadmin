@@ -2,7 +2,6 @@ package org.svnadmin.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -23,7 +22,7 @@ public class SpringUtils implements ApplicationContextAware {
 	 * 当前的版本
 	 * @since 3.0.2
 	 */
-	private static String version;
+	private static String version = "3.0.6";
 	/**
 	 * ApplicationContext
 	 */
@@ -79,7 +78,6 @@ public class SpringUtils implements ApplicationContextAware {
 	 * @param version 当前的版本
 	 * @since 3.0.2
 	 */
-	@Value("${version}")
 	public void setVersion(String version){
 		SpringUtils.version = version;
 	}
